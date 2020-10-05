@@ -1,0 +1,6 @@
+logo: /img/logo.png
+permalink: /:slug/
+theme: jekyll-theme-minimal
+title: Elton's Container Show
+show_downloads: false
+google_analytics: UA-66499982-7

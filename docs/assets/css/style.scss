@@ -1,0 +1,20 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+body {
+    font: 18px/1.75 "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  
+header {
+    width:350px;
+  }
+  
+.wrapper {
+    width:1050px;
+  }
+    
+section {
+    width:650px;
+  }

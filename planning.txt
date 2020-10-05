@@ -1,0 +1,46 @@
+planning.txt
+
+20.10 -Wx - Windows Containers
+
+1 - We need to talk about
+2 - Building Windows images
+3 - Windows containers in the cloud - ACI & AKS
+4 - Versioning and isolation
+
+
+20.11 -Ox - Orchestration
+
+1 - 101 & why compose isn't (although... ACI)
+2 - Swarm
+3 - Kubernetes
+4 - Nomad
+
+20.12 -Cx - CI/CD
+
+1 - Jenkins
+2 - GHA/Hub
+3 - Argo/Flux
+
+21.01 -Vx - Observability
+
+1 - Architecture
+2 - Monitoring - Prometheus
+3 - Tracing - Jaeger
+4 - Logging - EFK
+
+21.02 -Mx - Into the service mesh
+
+1 - 101
+2 - Istio
+3 - Linkerd
+4 - OSM & SMI
+
+21.03 -Sx - Security
+
+1 - 101 & attack surface
+2 - Image scanning, Snyk/Aqua
+3 - Runtime monitoring, Aqua/Twist
+4 - Secure supply chain & Kube webhooks
+
+
+21.04 - KIAMOL?
