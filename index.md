@@ -10,7 +10,7 @@ Every month I'll cover a different theme in sessions which are full of demos and
 * [sixeyed/ecs - GitHub repo](https://github.com/sixeyed/ecs)
 * [eltons.show - the homepage](https://eltons.show)
 
-> You can always get to the latest episode at https://eltons.show/latest
+> You can always get to the latest episode at [eltons.show/latest](https://eltons.show/latest)
 
 ## Episodes
 
