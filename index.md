@@ -20,7 +20,7 @@ __October 2020 (theme: Windows containers)__
 
 * [ECS-W2: Building and Running Windows Apps in Docker Containers](episodes/ecs-w2/ecs-w2.md)
 
-* [ECS-W3: Running Windows Containers in the Cloud with ACI and AKS](episodes/ecs-w2/ecs-w3.md)
+* [ECS-W3: Running Windows Containers in the Cloud with ACI and AKS](episodes/ecs-w3/ecs-w3.md)
 
 ## About Me
 
