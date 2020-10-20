@@ -8,9 +8,9 @@ This episode shows you how to package apps from MSIs and from .NET source code.
 
 ## Links
 
-* [.NET Framework base images](https://kubernetes.io/docs/setup/production-environment/windows/intro-windows-in-kubernetes/)
+* [.NET Framework base images](https://hub.docker.com/_/microsoft-dotnet-framework)
 
-* [.NET Core base images](https://kubernetes.io/docs/setup/production-environment/windows/intro-windows-in-kubernetes/)
+* [.NET Core base images](https://hub.docker.com/_/microsoft-dotnet)
 
 * [Docker for .NET Apps](https://github.com/sixeyed/docker4.net) - material from the Udemy course, coming soon :)
 
