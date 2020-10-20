@@ -10,13 +10,17 @@ Every month I'll cover a different theme in sessions which are full of demos and
 * [sixeyed/ecs - GitHub repo](https://github.com/sixeyed/ecs)
 * [eltons.show - the homepage](https://eltons.show)
 
+> You can always get to the latest episode at https://eltons.show/latest
+
 ## Episodes
 
-__October 2020__
+__October 2020 (theme: Windows containers)__
 
 * [ECS-W1: We Need to Talk About Windows Containers](episodes/ecs-w1/ecs-w1.md)
 
 * [ECS-W2: Building and Running Windows Apps in Docker Containers](episodes/ecs-w2/ecs-w2.md)
+
+* [ECS-W3: Running Windows Containers in the Cloud with ACI and AKS](episodes/ecs-w2/ecs-w3.md)
 
 ## About Me
 
