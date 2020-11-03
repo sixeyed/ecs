@@ -1,0 +1,21 @@
+version: "3.7"
+
+services:
+  todo-web:
+    image: diamol/ch06-todo-list
+    ports:
+      - "80:80"
+    environment:
+      - Database__Provider=Postgres
+    volumes:
+      - type: volume
+        source: todo-config
+        target: /app/config/
+    restart: always
+
+volumes:
+  todo-config:
+    driver: azure_file
+    driver_opts:
+      share_name: todo-config
+      storage_account_name: ecso1

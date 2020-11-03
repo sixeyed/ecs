@@ -1,0 +1,25 @@
+Vagrant.configure("2") do |config|
+  
+  config.vm.define "linux" do |linux|
+    linux.vm.box = "bento/ubuntu-20.04"  
+    linux.vm.hostname = "linux"
+    linux.vm.network "private_network", type: "dhcp"
+
+    linux.vm.provision "shell", path: "setup.sh"
+
+    linux.vm.synced_folder "..", "/ecs-o1"
+
+    linux.vm.provider :hyperv do |v|
+      v.vmname = "linux"
+      v.maxmemory = 2000
+      v.cpus = 1
+    end
+
+    linux.vm.provider :virtualbox do |v|
+      v.name = "linux"
+      v.memory = 2000
+      v.cpus = 1
+    end
+  end
+
+end
