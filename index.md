@@ -14,6 +14,11 @@ Every month I'll cover a different theme in sessions which are full of demos and
 
 ## Episodes
 
+__November 2020 (theme: orchestration)__
+
+* [ECS-O1: Understanding Container Orchestration](episodes/ecs-o1/ecs-o1.md)
+
+
 __October 2020 (theme: Windows containers)__
 
 * [ECS-W1: We Need to Talk About Windows Containers](episodes/ecs-w1/ecs-w1.md)
