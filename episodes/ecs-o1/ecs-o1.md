@@ -17,7 +17,13 @@ You'll find them here in [ecs-o1.pptx](ecs-o1.pptx).
 
 ### Links
 
-* [Deploying Docker containers on Azure](docs.docker.com/engine/context/aci-integration/)
+* [Deploying Docker containers on Azure](https://docs.docker.com/engine/context/aci-integration/)
+
+* [Learn Docker in a Month of Lunches - the book](https://www.manning.com/books/learn-docker-in-a-month-of-lunches?utm_source=affiliate&utm_medium=affiliate&a_aid=elton&a_bid=5890141b)
+
+* [DIAMOL episode 06 - Running multi-container apps with Docker Compose](https://youtu.be/3bs4HDBRPgk)
+
+* [Awesome Compose](https://github.com/docker/awesome-compose)
 
 ### Pre-reqs
 
@@ -113,7 +119,7 @@ docker exec ecs-o1_todo-web_1 sh -c 'kill 1'
 docker ps
 ```
 
-> Compose doesn't restart the container
+> The container is restarted
 
 _Restart the Docker Engine:_
 
@@ -170,4 +176,4 @@ vagrant destroy linux
 
 ### Coming next
 
-ECS-O1: Understanding Container Orchestration
+[ECS-O2: Containers in Production with Docker Swarm](https://youtu.be/JzXNLYJlTqk)
