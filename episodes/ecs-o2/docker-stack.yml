@@ -1,0 +1,31 @@
+version: "3.7"
+
+services:
+  todo-db:
+    image: diamol/postgres:11.5
+    networks:
+      - todo-net
+
+  todo-web:
+    image: diamol/ch06-todo-list
+    ports:
+      - "8020:80"
+    configs:
+      - source: todo-web-config
+        target: /app/config/config.json
+    secrets:
+      - source: todo-web-secrets
+        target: /app/config/secrets.json
+    networks:
+      - todo-net
+
+networks:
+  todo-net:
+
+configs:
+  todo-web-config:
+    external: true
+
+secrets:
+  todo-web-secrets:
+    external: true

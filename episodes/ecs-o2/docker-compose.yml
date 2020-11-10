@@ -1,0 +1,22 @@
+version: "3.7"
+
+services:
+  todo-db:
+    image: diamol/postgres:11.5
+    networks:
+      - todo-net
+
+  todo-web:
+    image: diamol/ch06-todo-list
+    ports:
+      - "8010:80"
+    environment:
+      - Database:Provider=Postgres
+      - ConnectionStrings:ToDoDb=Server=todo-db;Database=todo;User Id=postgres;Password=postgres;
+    depends_on:
+      - todo-db
+    networks:
+      - todo-net
+
+networks:
+  todo-net:

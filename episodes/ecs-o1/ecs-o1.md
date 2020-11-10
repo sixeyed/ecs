@@ -142,7 +142,7 @@ docker-compose -f docker-compose-ha.yml up -d
 
 ### Demo 3 - And you can use the Compose spec on other platforms
 
-The ACHI version uses the same Docker Compose spec, but using Azure Files for configuration storage, and a managed Postgres database in Azure: [docker-compose-aci.yml](docker-compose-aci.yml).
+The ACI version uses the same Docker Compose spec, but using Azure Files for configuration storage, and a managed Postgres database in Azure: [docker-compose-aci.yml](docker-compose-aci.yml).
 
 * volume for config
 * restart flag

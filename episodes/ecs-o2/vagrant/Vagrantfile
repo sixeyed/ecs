@@ -1,0 +1,57 @@
+Vagrant.configure("2") do |config|
+  
+  config.vm.define "manager" do |manager|
+    manager.vm.box = "bento/ubuntu-20.04"  
+    manager.vm.hostname = "manager"
+    manager.vm.network "private_network", type: "dhcp"
+    manager.vm.provision "shell", path: "setup.sh"
+    manager.vm.synced_folder "..", "/ecs-o2"
+    manager.vm.provider :hyperv do |v|
+      v.vmname = "manager"
+      v.maxmemory = 2000
+      v.cpus = 1
+    end
+    manager.vm.provider :virtualbox do |v|
+      v.name = "manager"
+      v.memory = 2000
+      v.cpus = 1
+    end
+  end
+
+  config.vm.define "worker1" do |worker1|
+    worker1.vm.box = "bento/ubuntu-20.04"  
+    worker1.vm.hostname = "worker1"
+    worker1.vm.network "private_network", type: "dhcp"
+    worker1.vm.provision "shell", path: "setup.sh"
+    worker1.vm.synced_folder "..", "/ecs-o2"
+    worker1.vm.provider :hyperv do |v|
+      v.vmname = "worker1"
+      v.maxmemory = 2000
+      v.cpus = 1
+    end
+    worker1.vm.provider :virtualbox do |v|
+      v.name = "worker1"
+      v.memory = 2000
+      v.cpus = 1
+    end
+  end
+
+  config.vm.define "worker2" do |worker2|
+    worker2.vm.box = "bento/ubuntu-20.04"  
+    worker2.vm.hostname = "worker2"
+    worker2.vm.network "private_network", type: "dhcp"
+    worker2.vm.provision "shell", path: "setup.sh"
+    worker2.vm.synced_folder "..", "/ecs-o2"
+    worker2.vm.provider :hyperv do |v|
+      v.vmname = "worker2"
+      v.maxmemory = 2000
+      v.cpus = 1
+    end
+    worker2.vm.provider :virtualbox do |v|
+      v.name = "worker2"
+      v.memory = 2000
+      v.cpus = 1
+    end
+  end
+
+end

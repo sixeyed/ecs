@@ -5,7 +5,7 @@ planning.txt
 1 - We need to talk about
 2 - Building Windows images
 3 - Windows containers in the cloud - ACI & AKS
-4 - Versioning and isolation
+4 - Versioning and isolation (inc hyper-v & lcow)
 
 
 20.11 -Ox - Orchestration
