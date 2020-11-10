@@ -18,6 +18,8 @@ __November 2020 (theme: orchestration)__
 
 * [ECS-O1: Understanding Container Orchestration](episodes/ecs-o1/ecs-o1.md)
 
+* [ECS-O2: Containers in Prodcution with Docker Swarm](episodes/ecs-o2/ecs-o2.md)
+
 
 __October 2020 (theme: Windows containers)__
 
