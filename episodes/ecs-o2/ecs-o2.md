@@ -296,4 +296,4 @@ vagrant destroy
 
 ### Coming next
 
-* ECS-O2: Containers in Production with Kubernetes
+* [ECS-O3: Containers in Production with Kubernetes](https://youtu.be/KTJUcrYffcA)
