@@ -1,0 +1,112 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: todo-web
+  namespace: todo-list
+spec:
+  ports:
+    - port: 80
+      targetPort: web
+      nodePort: 30020
+  selector:
+    app: todo-web
+  type: NodePort
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: todo-web-config
+  namespace: todo-list
+data:
+  config.json: |-
+    {
+      "ConfigController": {
+        "Enabled" : true
+      },
+      "Database" : {
+        "Provider" : "Postgres"
+      },
+      "Metrics" : {
+        "Enabled" : true
+      }
+    }
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: todo-web-secret
+  namespace: todo-list
+type: Opaque
+stringData:
+  secrets.json: |-
+    {
+      "ConnectionStrings": {
+        "ToDoDb": "Server=todo-db;Database=todo;User Id=postgres;Password=kiamol-2*2*;"
+      }
+    }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-web
+  namespace: todo-list
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: todo-web
+  template:
+    metadata:
+      labels:
+        app: todo-web
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - name: web
+          image: kiamol/ch04-todo-list
+          ports:
+            - containerPort: 80
+              name: web
+          volumeMounts:
+            - name: config
+              mountPath: "/app/config"
+              readOnly: true
+            - name: secret
+              mountPath: "/app/secrets"
+              readOnly: true
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            periodSeconds: 10
+            initialDelaySeconds: 10
+          resources:
+            requests:
+              cpu: 125m
+              memory: 150Mi
+            limits:
+              cpu: 250m
+              memory: 250Mi  
+      volumes:
+        - name: config
+          configMap:
+            name: todo-web-config
+        - name: secret
+          secret:
+            secretName: todo-web-secret
+            defaultMode: 0400
+      affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - todo-db
+            topologyKey: "kubernetes.io/hostname"

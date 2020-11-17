@@ -1,0 +1,57 @@
+Vagrant.configure("2") do |config|
+  
+  config.vm.define "control" do |control|
+    control.vm.box = "bento/ubuntu-20.04"
+    control.vm.hostname = "control"
+    control.vm.network "private_network", type: "dhcp"
+    control.vm.provision "shell", path: "setup.sh"
+    control.vm.synced_folder "..", "/ecs-o3"
+    control.vm.provider :hyperv do |v|
+      v.vmname = "control"
+      v.maxmemory = 3000
+      v.cpus = 2
+    end
+    control.vm.provider :virtualbox do |v|
+      v.name = "control"
+      v.memory = 3000
+      v.cpus = 2
+    end
+  end
+
+  config.vm.define "node" do |node|
+    node.vm.box = "bento/ubuntu-20.04"
+    node.vm.hostname = "node"
+    node.vm.network "private_network", type: "dhcp"
+    node.vm.provision "shell", path: "setup.sh"
+    node.vm.synced_folder "..", "/ecs-o3"
+    node.vm.provider :hyperv do |v|
+      v.vmname = "node"
+      v.maxmemory = 1500
+      v.cpus = 1
+    end
+    node.vm.provider :virtualbox do |v|
+      v.name = "node"
+      v.memory = 1500
+      v.cpus = 1
+    end
+  end  
+
+  config.vm.define "node2" do |node2|
+    node2.vm.box = "bento/ubuntu-20.04"
+    node2.vm.hostname = "node2"
+    node2.vm.network "private_network", type: "dhcp"
+    node2.vm.provision "shell", path: "setup.sh"
+    node2.vm.synced_folder "..", "/ecs-o3"
+    node2.vm.provider :hyperv do |v|
+      v.vmname = "node2"
+      v.maxmemory = 1500
+      v.cpus = 1
+    end
+    node2.vm.provider :virtualbox do |v|
+      v.name = "node2"
+      v.memory = 1500
+      v.cpus = 1
+    end
+  end 
+
+end

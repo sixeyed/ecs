@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-web
+  namespace: todo-list
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: todo-web
+  template:
+    metadata:
+      labels:
+        app: todo-web
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - name: web
+          image: kiamol/ch04-todo-list
+          ports:
+            - containerPort: 80
+              name: web
+          volumeMounts:
+            - name: config
+              mountPath: "/app/config"
+              readOnly: true
+            - name: secret
+              mountPath: "/app/secrets"
+              readOnly: true
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            periodSeconds: 10
+            initialDelaySeconds: 10
+          resources:
+            requests:
+              cpu: 125m
+              memory: 150Mi
+            limits:
+              cpu: 250m
+              memory: 250Mi  
+      volumes:
+        - name: config
+          configMap:
+            name: todo-web-config
+        - name: secret
+          secret:
+            secretName: todo-web-secret
+            defaultMode: 0400
+      affinity:
+        podAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 1
+              podAffinityTerm: 
+                labelSelector:
+                  matchExpressions:
+                    - key: app
+                      operator: In
+                      values:
+                      - todo-db
+                topologyKey: "kubernetes.io/hostname"
+                # in a cloud platform:
+                # topologyKey: "topology.kubernetes.io/zone"
