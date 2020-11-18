@@ -20,7 +20,7 @@ __November 2020 (theme: orchestration)__
 
 * [ECS-O2: Containers in Prodcution with Docker Swarm](episodes/ecs-o2/ecs-o2.md)
 
-* [ECS-O3: Containers in Prodcution with Kubernetes](episodes/ecs-o3/ecs-o3.md)
+* [ECS-O3: Containers in Production with Kubernetes](episodes/ecs-o3/ecs-o3.md)
 
 __October 2020 (theme: Windows containers)__
 

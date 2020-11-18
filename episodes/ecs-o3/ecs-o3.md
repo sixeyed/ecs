@@ -1,6 +1,8 @@
 ## ECS-O3: Containers in Production with Kubernetes
 
-Kubernetes is the most popular container orchestrator because of it's power and portability. You can model your apps in Kubernetes and deploy the same specs on the desktop, in the datacentre and on a managed Kubernetes service in the cloud. Get a better deal from another cloud? Just deploy your apps there with no changes and edit your DNS records.
+Kubernetes is the most popular container orchestrator because of it's power and portability. 
+
+You can model your apps in Kubernetes and deploy the same specs on the desktop, in the datacentre and on a managed Kubernetes service in the cloud. Get a better deal from another cloud? Just deploy your apps there with no changes and edit your DNS records.
 
 In this episode you'll see how to deploy Kubernetes in lab VMs and run some simple applications. The application specs will include production concerns like healthchecks, resource restrictions and security settings.
 
@@ -215,4 +217,4 @@ vagrant destroy
 
 ### Coming next
 
-* ECS-O4: Containers in Production with Nomad
+* [ECS-O4: Containers in Production with Nomad](https://youtu.be/Q7D5ZzOLT58)
