@@ -1,4 +1,4 @@
-## ECS-O3: Containers in Production with Nomad
+## ECS-O4: Containers in Production with Nomad
 
 Nomad is a workload orchestrator. It uses a generic specification for tasks which can run in containers, or as a VM, or in a Java environment or as a process on a server. The Docker driver lets you use Nomad as a pure container orchestrator.
 
