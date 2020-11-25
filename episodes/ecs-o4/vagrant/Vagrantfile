@@ -1,0 +1,78 @@
+Vagrant.configure("2") do |config|
+
+  config.vm.define "dev" do |dev|
+    dev.vm.box = "bento/ubuntu-20.04"
+    dev.vm.hostname = "dev"
+    dev.vm.network "private_network", type: "dhcp"
+    dev.vm.provision "shell", path: "setup.sh"
+    dev.vm.synced_folder "..", "/ecs-o4"
+    dev.vm.provider :hyperv do |v|
+      v.vmname = "dev"
+      v.maxmemory = 3000
+      v.cpus = 2
+    end
+    dev.vm.provider :virtualbox do |v|
+      v.name = "dev"
+      v.memory = 3000
+      v.cpus = 2
+    end
+  end
+
+  config.vm.define "server" do |server|
+    server.vm.box = "bento/ubuntu-20.04"
+    server.vm.hostname = "server"
+    server.vm.network "private_network", type: "dhcp"    
+    server.vm.provision "shell", path: "setup-prod-server.sh"
+    server.vm.provision "shell", path: "setup-prod.sh"
+    server.vm.synced_folder "..", "/ecs-o4"
+    server.vm.provider :hyperv do |v|
+      v.vmname = "server"
+      v.maxmemory = 3000
+      v.cpus = 2
+    end
+    server.vm.provider :virtualbox do |v|
+      v.name = "server"
+      v.memory = 3000
+      v.cpus = 2
+    end
+  end
+
+  config.vm.define "client" do |client|
+    client.vm.box = "bento/ubuntu-20.04"
+    client.vm.hostname = "client"
+    client.vm.network "private_network", type: "dhcp"    
+    client.vm.provision "shell", path: "setup-prod-client.sh"
+    client.vm.provision "shell", path: "setup-prod.sh"
+    client.vm.synced_folder "..", "/ecs-o4"
+    client.vm.provider :hyperv do |v|
+      v.vmname = "client"
+      v.maxmemory = 1500
+      v.cpus = 1
+    end
+    client.vm.provider :virtualbox do |v|
+      v.name = "client"
+      v.memory = 1500
+      v.cpus = 1
+    end
+  end  
+
+  config.vm.define "client2" do |client2|
+    client2.vm.box = "bento/ubuntu-20.04"
+    client2.vm.hostname = "client2"
+    client2.vm.network "private_network", type: "dhcp"
+    client2.vm.provision "shell", path: "setup-prod-client.sh"
+    client2.vm.provision "shell", path: "setup-prod.sh"
+    client2.vm.synced_folder "..", "/ecs-o4"
+    client2.vm.provider :hyperv do |v|
+      v.vmname = "client2"
+      v.maxmemory = 1500
+      v.cpus = 1
+    end
+    client2.vm.provider :virtualbox do |v|
+      v.name = "client2"
+      v.memory = 1500
+      v.cpus = 1
+    end
+  end 
+
+end
