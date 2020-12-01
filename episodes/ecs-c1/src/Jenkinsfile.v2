@@ -1,0 +1,40 @@
+pipeline {
+    agent any
+    environment {
+       REGISTRY = "registry.local:5000"
+       USER = "ecs"
+    }
+    stages {
+        stage('Verify') {
+            steps {
+                sh 'docker version && docker-compose version'
+            }
+        }
+        stage('Build') {
+            steps {
+                dir('episodes/ecs-c1/src') {
+                    sh 'docker-compose build'
+                }
+            }
+        }
+        stage('Test') {
+            steps {
+                dir('episodes/ecs-c1/src') {
+                    sh '''
+                        docker-compose up -d
+                        curl localhost:8020/image > image.json
+                        cat image.json
+                    '''
+                }
+            }
+        }
+        stage('Push') {
+            steps {
+                dir('episodes/ecs-c1/src') {
+                    sh 'docker-compose push'
+                    echo "Pushed web to http://$REGISTRY/v2/diamol/ch11-numbers-web/tags/list"
+                }
+            }
+        }
+    }
+}

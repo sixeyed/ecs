@@ -1,0 +1,28 @@
+version: "3.7"
+
+services:
+  gogs:
+    image: gogs/gogs:0.12
+    ports:
+      - "3000:3000"
+    networks:
+      - infrastructure
+
+  registry.local:
+    image: registry:2.7
+    ports:
+      - "5000:5000"
+    networks:
+      - infrastructure
+
+  jenkins:
+    image: sixeyed/jenkins:ecs-c1
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./jenkins/:/var/jenkins_home/init.groovy.d/
+    networks:
+      - infrastructure
+
+networks:
+  infrastructure:

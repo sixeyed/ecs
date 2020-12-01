@@ -323,4 +323,4 @@ nomad job status todo-web
 
 ### Coming next
 
-* ECS-C1: Continuous Integration with Containers and Jenkins
+* [ECS-C1: Continuous Integration with Docker and Jenkins](https://youtu.be/MBDxDM4NkbI)

@@ -1,0 +1,7 @@
+version: "3.7"
+
+services:
+  jenkins:
+    image: sixeyed/jenkins:ecs-c1
+    build:
+      context: ./jenkins 

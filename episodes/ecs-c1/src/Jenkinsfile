@@ -1,0 +1,21 @@
+pipeline {
+    agent any
+    environment {
+       REGISTRY = "registry.local:5000"
+       USER = "ecs"
+    }
+    stages {
+        stage('Verify') {
+            steps {
+                sh 'docker version && docker-compose version'
+            }
+        }
+        stage('Build') {
+            steps {
+                dir('episodes/ecs-c1/src') {
+                    sh 'docker-compose build'
+                }
+            }
+        }
+    }
+}

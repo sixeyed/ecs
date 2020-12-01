@@ -1,0 +1,11 @@
+{
+  "release": "19.12",
+  "environment": "UNKNOWN",
+  "fail": {
+    "enabled": false,
+    "after": 3
+  },
+  "metrics": {
+    "enabled": true
+  }
+}
