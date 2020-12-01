@@ -6,7 +6,4 @@ RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/co
     docker-cli \
     docker-compose
 
-RUN apk add --no-cache \
-    curl
-
 USER jenkins
