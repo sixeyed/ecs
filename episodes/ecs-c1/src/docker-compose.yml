@@ -12,7 +12,7 @@ services:
       context: ./access-log      
       <<: *args
     ports:
-     - 8030:80
+     - "80"
 
   image-gallery:
     image: ${REGISTRY:-docker.io}/${USER:-sixeyed}/image-gallery:ecs-c1
@@ -20,7 +20,7 @@ services:
       context: ./image-gallery
       <<: *args
     ports:
-     - 8010:80
+     - "80"
 
   image-of-the-day:
     image: ${REGISTRY:-docker.io}/${USER:-sixeyed}/image-of-the-day:ecs-c1
@@ -28,4 +28,4 @@ services:
       context: ./image-of-the-day
       <<: *args
     ports:
-     - 8020:80
+     - "80"

@@ -50,8 +50,6 @@ docker image inspect sixeyed/image-of-the-day:ecs-c1
 
 docker logs infrastructure_jenkins_1
 
-docker exec infrastructure_jenkins_1 cat /var/jenkins_home/secrets/initialAdminPassword
-
 
 localhost:8080
 
@@ -61,12 +59,25 @@ localhost:8080
 * poll scm * * * * * 
 
 * git - http://gogs:3000/ecs/ecs.git
+* path - episodes/ecs-c1/src/Jenkinsfile
 
+> build now
 
+```
+docker image ls registry.local:5000/*/*
+```
 
 ### Demo 3 - Running tests in containers
 
+Change Jenkins job at http://localhost:8080/job/ecs-c1/configure
 
+* path - episodes/ecs-c1/src/Jenkinsfile
+
+> build now
+
+```
+docker image inspect registry.local:5000/ecs/image-gallery:ecs-c1
+```
 
 ### Coming next
 

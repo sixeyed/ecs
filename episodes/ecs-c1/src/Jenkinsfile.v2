@@ -5,7 +5,7 @@ pipeline {
        USER = "ecs"
     }
     stages {
-        stage('Verify') {
+        stage('Audit') {
             steps {
                 sh 'docker version && docker-compose version'
             }

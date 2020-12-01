@@ -19,8 +19,10 @@ services:
     image: sixeyed/jenkins:ecs-c1
     ports:
       - "8080:8080"
+    user: root
     volumes:
       - ./jenkins/:/var/jenkins_home/init.groovy.d/
+      - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - infrastructure
 
