@@ -14,6 +14,10 @@ Every month I'll cover a different theme in sessions which are full of demos and
 
 ## Episodes
 
+__December 2020 (theme: CI/CD)__
+
+* [ECS-C1: Continuous Integration with Docker and Jenkins](episodes/ecs-c1/)
+
 __November 2020 (theme: orchestration)__
 
 * [ECS-O1: Understanding Container Orchestration](episodes/ecs-o1/ecs-o1.md)

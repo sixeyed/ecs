@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<title>Redirecting to https://eltons.show/episodes/ecs-c1/README.md</title>
-<meta http-equiv="refresh" content="0; URL=https://eltons.show/episodes/ecs-c1/README.md">
-<link rel="canonical" href="https://eltons.show/episodes/ecs-c1/README.md">
+<title>Redirecting to https://eltons.show/episodes/ecs-c1/</title>
+<meta http-equiv="refresh" content="0; URL=https://eltons.show/episodes/ecs-c1/">
+<link rel="canonical" href="https://eltons.show/episodes/ecs-c1/">
 
