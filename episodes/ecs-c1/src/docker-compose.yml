@@ -13,6 +13,8 @@ services:
       <<: *args
     ports:
      - "80"
+    networks:
+     - apod
 
   image-gallery:
     image: ${REGISTRY:-docker.io}/${USER:-sixeyed}/image-gallery:ecs-c1
@@ -21,6 +23,8 @@ services:
       <<: *args
     ports:
      - "80"
+    networks:
+     - apod
 
   image-of-the-day:
     image: ${REGISTRY:-docker.io}/${USER:-sixeyed}/image-of-the-day:ecs-c1
@@ -29,3 +33,8 @@ services:
       <<: *args
     ports:
      - "80"
+    networks:
+     - apod
+     
+networks:
+  apod:
