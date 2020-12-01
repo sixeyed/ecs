@@ -18,7 +18,7 @@ __November 2020 (theme: orchestration)__
 
 * [ECS-O1: Understanding Container Orchestration](episodes/ecs-o1/ecs-o1.md)
 
-* [ECS-O2: Containers in Prodcution with Docker Swarm](episodes/ecs-o2/ecs-o2.md)
+* [ECS-O2: Containers in Production with Docker Swarm](episodes/ecs-o2/ecs-o2.md)
 
 * [ECS-O3: Containers in Production with Kubernetes](episodes/ecs-o3/ecs-o3.md)
 
