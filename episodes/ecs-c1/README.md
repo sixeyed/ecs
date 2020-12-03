@@ -143,4 +143,4 @@ curl http://registry.local:5000/v2/ecs/access-log/tags/list
 
 ### Coming next
 
-ECS-C2: CI/CD with Docker and GitHub Actions
+[ECS-C2: CI/CD with Docker and GitHub Actions](https://youtu.be/HCk-_bssu4w)
