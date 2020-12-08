@@ -5,7 +5,6 @@ on:
     tags:
       - 'v*'
 
-
 jobs:
   ecs-c2-v2-access-log:
     runs-on: ubuntu-latest
@@ -148,7 +147,10 @@ jobs:
         cluster-name: ecs-c2
         resource-group: ecs-c2
 
-    - uses: Azure/k8s-deploy@v1.3
+    - name: Debug
+      run: ls ./episodes/ecs-c2/kubernetes
+
+    - uses: Azure/k8s-deploy@v1.2
       with:
         manifests: |
           ./episodes/ecs-c2/kubernetes/api.yml
