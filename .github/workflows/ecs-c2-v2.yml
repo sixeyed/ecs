@@ -1,0 +1,133 @@
+name: ECS-C2 CI/CD demo - v1
+
+on:
+  push:
+    branches:
+      - '**'
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  ecs-c2-v2-access-log:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Registry login
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+          
+      - name: Docker - image metadata
+        id: docker_meta
+        uses: crazy-max/ghaction-docker-meta@v1
+        with:
+          images: sixeyed/access-log
+
+      - name: Docker - setup buildx
+        uses: docker/setup-buildx-action@v1
+        
+      - name: Docker - setup layer cache
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      - name: Build and push Image of the Day
+        uses: docker/build-push-action@v2
+        with:
+          context: ./episodes/ecs-c2/src/image-of-the-day
+          file: ./Dockerfile
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache
+          push: true
+          tags: ${{ steps.docker_meta.outputs.tags }}
+          labels: ${{ steps.docker_meta.outputs.labels }}
+
+  ecs-c2-v2-image-gallery:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Registry login
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+          
+      - name: Docker - image metadata
+        id: docker_meta
+        uses: crazy-max/ghaction-docker-meta@v1
+        with:
+          images: sixeyed/image-gallery
+
+      - name: Docker - setup buildx
+        uses: docker/setup-buildx-action@v1
+        
+      - name: Docker - setup layer cache
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      - name: Build and push Image of the Day
+        uses: docker/build-push-action@v2
+        with:
+          context: ./episodes/ecs-c2/src/image-of-the-day
+          file: ./Dockerfile
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache
+          push: true
+          tags: ${{ steps.docker_meta.outputs.tags }}
+          labels: ${{ steps.docker_meta.outputs.labels }}
+
+  ecs-c2-v2-image-of-the-day:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Registry login
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+          
+      - name: Docker - image metadata
+        id: docker_meta
+        uses: crazy-max/ghaction-docker-meta@v1
+        with:
+          images: sixeyed/image-of-the-day
+
+      - name: Docker - setup buildx
+        uses: docker/setup-buildx-action@v1
+        
+      - name: Docker - setup layer cache
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      - name: Build and push Image of the Day
+        uses: docker/build-push-action@v2
+        with:
+          context: ./episodes/ecs-c2/src/image-of-the-day
+          file: ./Dockerfile
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache
+          push: true
+          tags: ${{ steps.docker_meta.outputs.tags }}
+          labels: ${{ steps.docker_meta.outputs.labels }}

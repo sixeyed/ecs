@@ -1,4 +1,4 @@
-name: ECS-C2 CI/CD demo
+name: ECS-C2 CI/CD demo - v1
 
 on:
   push:
@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  ecs-c2:
+  ecs-c2-v1:
     runs-on: ubuntu-latest
     steps:
     
