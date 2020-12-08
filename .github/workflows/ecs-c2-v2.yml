@@ -1,4 +1,4 @@
-name: ECS-C2 CI/CD demo - v1
+name: ECS-C2 CI/CD demo - v2
 
 on:
   push:
@@ -39,11 +39,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-buildx-
 
-      - name: Build and push Image of the Day
+      - name: Build and push Access Log
         uses: docker/build-push-action@v2
         with:
-          context: ./episodes/ecs-c2/src/image-of-the-day
-          file: ./Dockerfile
+          context: episodes/ecs-c2/src/access-log
+          file: Dockerfile.v2
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
           push: true
@@ -80,11 +80,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-buildx-
 
-      - name: Build and push Image of the Day
+      - name: Build and push Image Gallery
         uses: docker/build-push-action@v2
         with:
-          context: ./episodes/ecs-c2/src/image-of-the-day
-          file: ./Dockerfile
+          context: episodes/ecs-c2/src/image-gallery
+          file: Dockerfile.v2
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
           push: true
@@ -124,8 +124,8 @@ jobs:
       - name: Build and push Image of the Day
         uses: docker/build-push-action@v2
         with:
-          context: ./episodes/ecs-c2/src/image-of-the-day
-          file: ./Dockerfile
+          context: episodes/ecs-c2/src/image-of-the-day
+          file: Dockerfile.v2
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
           push: true
