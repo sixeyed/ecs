@@ -1,0 +1,41 @@
+version: "3.7"
+
+x-args: &args
+  args:
+    BUILD_NUMBER: ${GITHUB_RUN_NUMBER:-0}
+    BUILD_TAG: ${GITHUB_WORKFLOW:-UNKNOWN}
+    COMMIT_SHA: ${GITHUB_SHA:-UNKNOWN}
+
+services:
+  access-log:
+    image: sixeyed/access-log:ecs-c2-${GITHUB_RUN_NUMBER:-0}
+    build:
+      context: ./access-log      
+      <<: *args
+    ports:
+     - "80"
+    networks:
+     - apod
+
+  image-gallery:
+    image: sixeyed/image-gallery:ecs-c2-${GITHUB_RUN_NUMBER:-0}
+    build:
+      context: ./image-gallery
+      <<: *args
+    ports:
+     - "80"
+    networks:
+     - apod
+
+  image-of-the-day:
+    image: sixeyed/image-of-the-day:ecs-c2-${GITHUB_RUN_NUMBER:-0}
+    build:
+      context: ./image-of-the-day
+      <<: *args
+    ports:
+     - "80"
+    networks:
+     - apod
+     
+networks:
+  apod:
