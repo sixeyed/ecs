@@ -1,4 +1,4 @@
-name: ECS-C2 CI/CD demo - deploy
+name: ECS-C2 CI/CD demo - v3
 
 on:
   push:
@@ -53,7 +53,7 @@ jobs:
     steps:
 
       - name: Checkout
-        uses: actions/checkout@master
+        uses: actions/checkout@v2
 
       - name: Registry login
         uses: docker/login-action@v1
@@ -94,7 +94,7 @@ jobs:
     steps:
 
       - name: Checkout
-        uses: actions/checkout@master
+        uses: actions/checkout@v2
 
       - name: Registry login
         uses: docker/login-action@v1
@@ -135,6 +135,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
+    - name: Checkout
+      uses: actions/checkout@v2
+
     - name: Set image tag
       id: vars
       run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
@@ -148,9 +151,9 @@ jobs:
     - uses: Azure/k8s-deploy@v1.3
       with:
         manifests: |
-          kubernetes/api.yml
-          kubernetes/log.yml
-          kubernetes/web.yml
+          ./episodes/ecs-c2/kubernetes/api.yml
+          ./episodes/ecs-c2/kubernetes/log.yml
+          ./episodes/ecs-c2/kubernetes/web.yml
         images: |
           sixeyed/image-of-the-day:${{ steps.vars.outputs.tag }}
           sixeyed/access-log:${{ steps.vars.outputs.tag }}
