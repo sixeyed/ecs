@@ -5,6 +5,9 @@ on:
     tags:
       - 'v*'
 
+env:
+  DEPLOYMENT: apod-test
+
 jobs:
   ecs-c2-v2-access-log:
     runs-on: ubuntu-latest
@@ -137,26 +140,26 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
-    - name: Set image tag
-      id: vars
-      run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
-
     - uses: Azure/aks-set-context@v1
       with:
         creds: '${{ secrets.AZURE_CREDENTIALS }}'
         cluster-name: ecs-c2
         resource-group: ecs-c2
 
-    - name: Debug
-      run: ls episodes/ecs-c2/kubernetes
+    - uses: azure/setup-helm@v1
 
-    - uses: Azure/k8s-deploy@v1.2
-      with:
-        manifests: |
-          episodes/ecs-c2/kubernetes/api.yml
-          episodes/ecs-c2/kubernetes/log.yml
-          episodes/ecs-c2/kubernetes/web.yml
-        images: |
-          sixeyed/image-of-the-day:${{ steps.vars.outputs.tag }}
-          sixeyed/access-log:${{ steps.vars.outputs.tag }}
-          sixeyed/image-gallery:${{ steps.vars.outputs.tag }}
+    - name: Verify
+      run: |
+        helm version
+        kubectl get nodes
+
+    - name: Set image tag
+      id: vars
+      run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
+
+    - name: Deploy
+      env:
+        TAG: ${{ steps.vars.outputs.tag }}
+      run: |
+        helm install --set imageTag=${TAG} ${DEPLOYMENT} episodes/ecs-c2/apod/
+      working-directory: ./episodes/ecs-c2

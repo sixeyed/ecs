@@ -1,0 +1,6 @@
+# tag to deploy:
+imageTag: latest
+# port for the web Service:
+servicePort: 8080
+# type of the web Service:
+serviceType: LoadBalancer
