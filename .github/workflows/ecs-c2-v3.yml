@@ -161,5 +161,5 @@ jobs:
       env:
         TAG: ${{ steps.vars.outputs.tag }}
       run: |
-        helm install --set imageTag=${TAG} ${DEPLOYMENT} episodes/ecs-c2/apod/
+        helm install --set imageTag=${TAG} ${DEPLOYMENT} ./apod/
       working-directory: ./episodes/ecs-c2
