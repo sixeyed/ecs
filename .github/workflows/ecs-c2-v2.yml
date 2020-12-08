@@ -45,7 +45,7 @@ jobs:
           context: ./episodes/ecs-c2/src/access-log
           file: ./episodes/ecs-c2/src/access-log/Dockerfile.v2
           cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache,mode=max
           push: true
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
@@ -86,7 +86,7 @@ jobs:
           context: ./episodes/ecs-c2/src/image-gallery
           file: ./episodes/ecs-c2/src/image-gallery/Dockerfile.v2
           cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache,mode=max
           push: true
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
@@ -127,7 +127,7 @@ jobs:
           context: ./episodes/ecs-c2/src/image-of-the-day
           file: ./episodes/ecs-c2/src/image-of-the-day/Dockerfile.v2
           cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache,mode=max
           push: true
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
