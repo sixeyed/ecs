@@ -161,10 +161,9 @@ jobs:
       env:
         TAG: ${{ steps.vars.outputs.tag }}
       run: |
-        helm install \
+        helm upgrade --install --atomic \
          --set imageTag=${TAG} \
          --set servicePort=80 \
-         ${DEPLOYMENT} ./apod/ \
-         --wait
+         ${DEPLOYMENT} ./apod/
         kubectl get svc image-gallery -o jsonpath='http://{.status.loadBalancer.ingress[0].*}'
       working-directory: ./episodes/ecs-c2
