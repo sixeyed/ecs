@@ -148,14 +148,14 @@ jobs:
         resource-group: ecs-c2
 
     - name: Debug
-      run: ls ./episodes/ecs-c2/kubernetes
+      run: ls episodes/ecs-c2/kubernetes
 
     - uses: Azure/k8s-deploy@v1.2
       with:
         manifests: |
-          ./episodes/ecs-c2/kubernetes/api.yml
-          ./episodes/ecs-c2/kubernetes/log.yml
-          ./episodes/ecs-c2/kubernetes/web.yml
+          episodes/ecs-c2/kubernetes/api.yml
+          episodes/ecs-c2/kubernetes/log.yml
+          episodes/ecs-c2/kubernetes/web.yml
         images: |
           sixeyed/image-of-the-day:${{ steps.vars.outputs.tag }}
           sixeyed/access-log:${{ steps.vars.outputs.tag }}
