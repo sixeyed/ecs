@@ -101,7 +101,7 @@ _Configure the source repo to use Gogs:_
 
 > Build now and check the logs
 
-Jenkins is using this [Jenkinsfile](.\src\Jenkinsfile). It runs Docker commands using the local Docker Engine - from the bind mounted socket. 
+Jenkins is using this [Jenkinsfile](./src/Jenkinsfile). It runs Docker commands using the local Docker Engine - from the bind mounted socket. 
 
 _Check the images it builds are in the local image cache:_
 
@@ -125,7 +125,7 @@ _Change the Jenkins job at http://localhost:8080/job/ecs-c1/configure_
 
 > Build now and check logs
 
-The new pipeline uses the job in [Jenkinsfile.v2](.\src\Jenkinsfile.v2).
+The new pipeline uses the job in [Jenkinsfile.v2](./src/Jenkinsfile.v2).
 
 _Verify the new build:_
 
