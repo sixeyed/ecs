@@ -28,6 +28,10 @@ GitHub.
 ### Demo 2 - Docker's GitHub actions
 
 
+git tag v0.1
+
+git push --tags
+
 ### Demo 3 - Deploying to AKS
 
 
