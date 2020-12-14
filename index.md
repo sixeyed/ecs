@@ -18,6 +18,10 @@ __December 2020 (theme: CI/CD)__
 
 * [ECS-C1: Continuous Integration with Docker and Jenkins](episodes/ecs-c1/)
 
+* [ECS-C2: Continuous Deployment with Docker and GitHub](episodes/ecs-c2/)
+
+* [ECS-C3: GitOps with Kubernetes and Argo](episodes/ecs-c3/)
+
 __November 2020 (theme: orchestration)__
 
 * [ECS-O1: Understanding Container Orchestration](episodes/ecs-o1/ecs-o1.md)
