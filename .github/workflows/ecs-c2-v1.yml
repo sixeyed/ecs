@@ -1,12 +1,12 @@
 name: ECS-C2 CI/CD demo - v1
 
 on:
-  push:
-    paths:
-      - ".github/workflows/ecs-c2.yaml"
-      - "episodes/ecs-c2/src/**"
-  schedule:
-    - cron: "0 0-7 * * *"
+  #push:
+  #  paths:
+  #    - ".github/workflows/ecs-c2.yaml"
+  #    - "episodes/ecs-c2/src/**"
+  #schedule:
+  #  - cron: "0 0-7 * * *"
   workflow_dispatch:
 
 jobs:

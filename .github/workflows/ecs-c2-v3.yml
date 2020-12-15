@@ -1,9 +1,9 @@
 name: ECS-C2 CI/CD demo - v3
 
 on:
-  push:
-    tags:
-      - 'v*'
+  #push:
+  #  tags:
+  #    - 'v*'
 
 env:
   DEPLOYMENT: apod-test
