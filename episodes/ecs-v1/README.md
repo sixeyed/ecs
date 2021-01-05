@@ -8,16 +8,23 @@ We'll use the leading tools to power collection and visualization of metrics: Pr
 
 ### Links
 
+* [Adding observability with containerized monitoring](https://youtu.be/6BcoR79AOas) - DIAMOL episode 08
+
 * [Getting Started with Prometheus](https://app.pluralsight.com/library/courses/getting-started-prometheus/table-of-contents) - my Pluralsight course
 
-* [Docker for .NET Apps](http://eepurl.com/hji6Hb) - sign up to know when my new Udemy course is released
+* [Docker for .NET Apps](http://eepurl.com/hji6Hb) - sign up to know when my new Udemy course is released, includes monitoring for .NET Framework and Core apps
 
 ### Pre-reqs
 
-Docker Desktop.
-
+[Docker Desktop](https://www.docker.com/products/docker-desktop) - with Kubernetes enabled (Linux container mode if you're running on Windows).
 
 ### Demo 1 - scraping container metrics with Prometheus
+
+The first step in monitoring containerized apps is to add metrics to every component. 
+
+The APOD app ([source code](https://github.com/sixeyed/kiamol/tree/master/ch14/docker-images)) does this using Prometheus client libraries, with examples in Go, Node.js and Java.
+
+Start the app:
 
 ```
 cd demo1
@@ -25,41 +32,55 @@ cd demo1
 docker-compose up -d
 ```
 
-http://localhost:8010/
+Browse to:
 
-http://localhost:8010/metrics
+- the app at http://localhost:8010/
 
-http://localhost:8012/metrics
+- the Go web server metrics at http://localhost:8010/metrics
 
-http://localhost:8011/actuator/prometheus
+- the Node.js log API metrics at http://localhost:8012/metrics
 
+- the Java image API metrics at http://localhost:8011/actuator/prometheus
+
+
+[Prometheus](https://prometheus.io) is the server component which collects and stores application metrics from the containers.
+
+Run Prometheus in a container, defined in [docker-compose-prometheus.yml](demo1/docker-compose-prometheus.yml). This is configured to collect metrics from all the APOD components:
 
 ```
-docker-compose -f .\docker-compose-prometheus.yml up -d
+docker-compose -f docker-compose-prometheus.yml up -d
 ```
 
-[config/prometheus.yml]
+> Prometheus is configured using simple domain names in [prometheus.yml](demo1/config/prometheus.yml); those are the container names specified in the app's [docker-compose.yml](demo1/docker-compose.yml)
 
-http://localhost:9090/config
+Browse to:
 
-http://localhost:9090/graph
+- Prometheus config UI at http://localhost:9090/config
 
-Runtime metrics - OS:
+- the query UI at http://localhost:9090/graph
+
+_Query some runtime OS metrics:_
 
 - `process_cpu_seconds_total`
 - `process_cpu_usage`
 
-Runtime metrics - platform:
+_And some platform metrics:_
 
 - `go_goroutines`
 - `http_server_requests_seconds_count`
 
-Application metrics:
+_And custom application metrics:_
 
 - `access_log_total`
 - `iotd_api_image_load_total`
 
 ### Demo 2 - service discovery in Docker Swarm
+
+Running at scale means you can't use static domain names - Prometheus needs to collect from every container, not go through a load-balancer.
+
+Prometheus supports dynamic service discovery for many platforms, including Docker Swarm.
+
+_Switch to Swarm mode and deploy Prometheus, configured with service discovery:_
 
 ```
 docker-compose -f docker-compose.yml -f docker-compose-prometheus.yml down
@@ -71,23 +92,31 @@ docker swarm init
 docker config create prometheus config/prometheus.yml
 
 docker stack deploy -c prometheus.yml prometheus
-
 ```
 
-http://localhost:9090/config
+The configuration in [prometheus.yml](demo2/config/prometheus.yml) is more complex; it models an opt-in approach, where components state if they want to have metrics scraped using labels.
 
-http://localhost:9090/service-discovery
+Browse to:
 
+- the Prometheus config at http://localhost:9090/config
+
+- discovered services at http://localhost:9090/service-discovery
+
+_Now deploy the APOD app as a Swarm stack:_
 
 ```
 docker stack deploy -c apod.yml apod
 ```
 
-http://localhost:9090/service-discovery
+The [apod.yml](demo2/apod.yml) app definition includes the Prometheus setup in the service labels.
 
-http://localhost:8010/
+Browse to:
 
-http://localhost:9090/graph
+- the new app at http://localhost:8010/
+
+- the updated service list at http://localhost:9090/service-discovery
+
+- graphs at http://localhost:9090/graph
 
 - `image_gallery_requests_total`
 - `iotd_api_image_load_total`
@@ -97,6 +126,10 @@ http://localhost:9090/graph
 > Switch to graph mode
 
 ### Demo 3 - service discovery in Kubernetes
+
+It's the same principle in Kubernetes - deploying Prometheus with a configuration to connect to the Kubernetes API for service discovery.
+
+_Clear down and check Kubernetes:_
 
 ```
 docker swarm leave -f
@@ -108,19 +141,27 @@ kubectl get nodes
 kubectl get ns
 ```
 
-Prometheus
+The configuration in [prometheus-config.yaml](demo3\prometheus\prometheus-config.yaml) shows an alternative approach - an opt-out model, where Pods within the default namespace are included unless they have an annotation to exclude them.
+
+_Deploy Prometheus to Kubernetes:_
 
 
 ```
-cd .../demo3
+cd ../demo3
 
 kubectl apply -f ./prometheus/
 
 kubectl get all -n monitoring
 ```
 
-http://localhost:9091/service-discovery
+> Prometheus needs access to query the Kubernetes API, so this deployment includes RBAC resources.
 
+Browse to:
+
+- Prometheus service discovery at http://localhost:9091/service-discovery
+
+
+_Now deploy the APOD app into the default namespace :_
 
 ```
 kubectl apply -f ./apod/
@@ -128,12 +169,17 @@ kubectl apply -f ./apod/
 kubectl get pods -n default
 ```
 
-http://localhost:9091/targets
+Browse to:
 
-http://localhost:8014/
+- the new app at http://localhost:8014/
 
-http://localhost:9091/graph
+- Prometheus target list at http://localhost:9091/targets
 
+- metrics at http://localhost:9091/graph
+
+The raw metrics can be used to drive a Grafana dashboard.Grafana runs in a Pod and connects to the Prometheus API to run queries and visualize the results.
+
+_Deploy Grafana, with a pre-configured APOD dashboard:_
 
 ```
 kubectl apply -f ./grafana/
@@ -141,9 +187,13 @@ kubectl apply -f ./grafana/
 kubectl get pods -n monitoring
 ```
 
-http://localhost:3000
+Browse to:
 
-- `ecs`/`ecs`
+- http://localhost:3000
+
+- sign in with credentials `ecs`/`ecs`
+
+- check the APOD dashboard
 
 ### Teardown
 
@@ -152,6 +202,5 @@ kubectl delete ns,svc,deploy,clusterrole,clusterrolebinding -l ecs=v1
 ```
 
 ### Coming next
-
 
 * ECS-V2: Centralized Logging with Elasticsearch, Fluentd and Kibana
