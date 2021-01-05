@@ -1,0 +1,29 @@
+version: '3.7'
+
+services:
+
+  prometheus:
+    image: prom/prometheus:v2.21.0
+    ports:
+      - "9090:9090"
+    command: --config.file=/config/prometheus.yml
+    configs:
+      - source: prometheus
+        target: /config/prometheus.yml
+    user: root
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    deploy:
+      placement:
+        constraints:
+          - "node.platform.os == linux"
+          - "node.role == manager"
+    networks:
+      - monitoring-net
+
+configs:
+  prometheus:
+    external: true
+
+networks:
+  monitoring-net:

@@ -14,6 +14,10 @@ Every month I'll cover a different theme in sessions which are full of demos and
 
 ## Episodes
 
+__January 2021 (theme: observability)__
+
+* [ECS-V1: Monitoring with Prometheus and Grafana](episodes/ecs-v1/)
+
 __December 2020 (theme: CI/CD)__
 
 * [ECS-C1: Continuous Integration with Docker and Jenkins](episodes/ecs-c1/)

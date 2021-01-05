@@ -1,0 +1,49 @@
+version: "3.7"
+
+services:
+  apod-log:
+    image: kiamol/ch14-access-log
+    ports:
+     - "8012:80"
+    networks:
+     - apod-net
+     - monitoring-net
+    deploy:
+      labels:
+        - "prometheus-scrape=true"
+        - "prometheus-path=/metrics"
+        - "prometheus-port=80"
+
+  apod-api:
+    image: kiamol/ch14-image-of-the-day
+    ports:
+     - "8011:80"
+    networks:
+     - apod-net
+     - monitoring-net
+    deploy:
+      replicas: 2
+      labels:
+        - "prometheus-scrape=true"
+        - "prometheus-path=/actuator/prometheus"
+        - "prometheus-port=80"
+
+  apod-web:
+    image: kiamol/ch14-image-gallery
+    ports:
+     - "8010:80"
+    networks:
+     - apod-net
+     - monitoring-net
+    deploy:
+      labels:
+        - "prometheus-scrape=true"
+        - "prometheus-path=/metrics"
+        - "prometheus-port=80"
+     
+networks:
+  apod-net:
+
+  monitoring-net:
+    external: true
+    name: prometheus_monitoring-net

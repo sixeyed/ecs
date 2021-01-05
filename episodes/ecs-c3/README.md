@@ -21,6 +21,14 @@ In this episode we'll see how GitOps works, using Argo - a CNCF project - to dep
 
 Docker Desktop for the local demos; Azure and GitHub for the others.
 
+### Prep for full demo
+
+_Create a whole new Kubernetes cluster with Argo deployed and the APOD app setup:_
+
+https://github.com/sixeyed/apod-infra/actions?query=workflow%3A%22APOD+Infra+-+Create+AKS+Cluster%22
+
+> Trigger workflow (takes a few minutes).
+
 ### Demo 1 - install ArgoCD
 
 Install the [Argo CLI](https://argoproj.github.io/argo-cd/cli_installation/).
@@ -132,11 +140,11 @@ Multiple Git repos for the full setup:
 
 > Each repo has secrets for the bits it needs
 
-_Create a whole new Kubernetes cluster with Argo deployed and the APOD app setup:_
+_Check the whole new Kubernetes cluster:_
 
 https://github.com/sixeyed/apod-infra/actions?query=workflow%3A%22APOD+Infra+-+Create+AKS+Cluster%22
 
-> Trigger workflow (takes a few minutes). Check out [apod-aks-create.yml](https://github.com/sixeyed/apod-infra/blob/main/.github/workflows/apod-aks-create.yml), which does the work.
+> Check out [apod-aks-create.yml](https://github.com/sixeyed/apod-infra/blob/main/.github/workflows/apod-aks-create.yml), which does the work.
 
 When done, check the output to get the Argo UI info. Browse to get the app IP address.
 

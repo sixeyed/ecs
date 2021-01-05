@@ -23,10 +23,11 @@ planning.txt
 
 21.01 -Vx - Observability
 
-1 - Architecture
-2 - Monitoring - Prometheus
+1 - Monitoring - Prometheus
+2 - Logging - EFK
 3 - Tracing - Jaeger
-4 - Logging - EFK
+4 - Sidecars
+
 
 21.02 -Mx - Into the service mesh
 

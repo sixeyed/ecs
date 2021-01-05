@@ -1,0 +1,16 @@
+version: "3.7"
+
+services:
+  prometheus:
+    image: prom/prometheus:v2.21.0
+    ports:
+     - "9090:9090"
+    volumes:
+      - type: bind
+        source: ./config/
+        target: /etc/prometheus
+    networks:
+     - apod
+     
+networks:
+  apod:

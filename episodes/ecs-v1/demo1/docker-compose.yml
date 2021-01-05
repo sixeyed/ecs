@@ -1,0 +1,26 @@
+version: "3.7"
+
+services:
+  apod-log:
+    image: kiamol/ch14-access-log
+    ports:
+     - "8012:80"
+    networks:
+     - apod
+
+  apod-api:
+    image: kiamol/ch14-image-of-the-day
+    ports:
+     - "8011:80"
+    networks:
+     - apod
+
+  apod-web:
+    image: kiamol/ch14-image-gallery
+    ports:
+     - "8010:80"
+    networks:
+     - apod
+     
+networks:
+  apod:
