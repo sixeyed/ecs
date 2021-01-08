@@ -44,4 +44,11 @@ planning.txt
 4 - Secure supply chain & Kube webhooks
 
 
-21.04 - KIAMOL?
+21.04 - KIAMOL ?
+
+21.05 - Lx - serverless
+
+1 - with containers - fn project
+2 - kubeless
+3 - knative
+4 - architecture, extending apps

@@ -203,4 +203,4 @@ kubectl delete ns,svc,deploy,clusterrole,clusterrolebinding -l ecs=v1
 
 ### Coming next
 
-* ECS-V2: Centralized Logging with Elasticsearch, Fluentd and Kibana
+* ECS-V2: Logging with Elasticsearch, Fluentd and Kibana

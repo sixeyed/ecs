@@ -18,6 +18,8 @@ __January 2021 (theme: observability)__
 
 * [ECS-V1: Monitoring with Prometheus and Grafana](episodes/ecs-v1/)
 
+* [ECS-V2: Logging with Elasticsearch, Fluentd and Kibana](episodes/ecs-v2/)
+
 __December 2020 (theme: CI/CD)__
 
 * [ECS-C1: Continuous Integration with Docker and Jenkins](episodes/ecs-c1/)
