@@ -1,0 +1,56 @@
+version: "3.7"
+
+services:
+
+  elasticsearch:
+    image: elasticsearch:6.8.12
+    environment:
+      - discovery.type=single-node
+    networks:
+      - logging-net
+    deploy:
+      placement:
+        constraints:
+          - "node.platform.os == linux"
+
+  kibana:
+    image: kibana:6.8.12
+    ports:
+      - "5601:5601"
+    networks:
+      - logging-net
+    deploy:
+      placement:
+        constraints:
+          - "node.platform.os == linux"
+
+  fluentd:
+    image: docker4dotnet/fluentd
+    environment:
+      FLUENTD_CONF: fluentd-es.conf
+    ports:
+      - target: 24224
+        published: 24224
+        protocol: tcp
+        mode: host
+      - target: 24224
+        published: 24224
+        protocol: udp
+        mode: host
+    configs:
+      - source: fluentd-es
+        target: /fluentd/etc/fluentd-es.conf
+    networks:
+      - logging-net
+    deploy:
+      mode: global
+      placement:
+        constraints:
+          - "node.platform.os == linux"
+
+configs:
+  fluentd-es:
+    external: true
+
+networks:
+  logging-net:

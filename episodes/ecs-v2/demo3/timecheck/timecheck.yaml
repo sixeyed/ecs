@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: timecheck
+  labels:
+    ecs: v2
+spec:
+  selector:
+    matchLabels:
+      app: timecheck
+  template:
+    metadata:
+      labels:
+        app: timecheck
+        ecs: v2
+    spec:
+      containers:
+        - name: timecheck
+          image: diamol/ch12-timecheck:1.0

@@ -52,3 +52,19 @@ planning.txt
 2 - kubeless
 3 - knative
 4 - architecture, extending apps
+
+
+21.06 - Rx - CNCF projects - architecture
+
+1 - contour
+2 - nats
+3 - tikv/tidb
+4 - grpc
+
+
+21.07 - tx - CNCF projects - tooling
+
+1 - harbor
+2 - dragonfly 
+3 - falco
+4 - operator fx

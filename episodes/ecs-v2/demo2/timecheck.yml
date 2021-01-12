@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+
+  timecheck:
+    image: diamol/ch12-timecheck:1.0
+    networks:
+      - app-net
+      - logging-net
+    logging:
+      driver: "fluentd"
+      options:
+        tag: "timecheck.publisher.{{.ImageName}}"
+    deploy:
+      replicas: 3
+      placement:
+        constraints:
+          - "node.platform.os == linux"
+
+networks:
+  app-net:
+
+  logging-net:
+    external: true
+    name: logging_logging-net
