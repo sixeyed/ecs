@@ -178,4 +178,4 @@ kubectl delete ns,svc,deploy,clusterrole,clusterrolebinding -l ecs=v2
 
 ### Coming next
 
-* ECS-V3: Distributed Tracing with OpenTracing and Jaeger
+* ECS-V3: Distributed Tracing with Jaeger and Kubernetes

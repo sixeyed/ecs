@@ -20,6 +20,8 @@ __January 2021 (theme: observability)__
 
 * [ECS-V2: Logging with Elasticsearch, Fluentd and Kibana](episodes/ecs-v2/)
 
+* [ECS-V3: Distributed Tracing with Jaeger and Kubernetes](episodes/ecs-v3/)
+
 __December 2020 (theme: CI/CD)__
 
 * [ECS-C1: Continuous Integration with Docker and Jenkins](episodes/ecs-c1/)
