@@ -1,0 +1,52 @@
+services:
+  jaeger:
+    image: jaegertracing/all-in-one:1.21
+    ports:
+      - "16686:16686"
+    networks:
+      - app-net  
+
+  products-db:
+    image: widgetario/products-db:postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - app-net  
+
+  products-api:
+    image: widgetario/products-api:dotnet
+    ports:
+      - "8081:80"
+    environment:
+      - Tracing__Enabled=true
+    networks:
+      - app-net
+    depends_on:
+      - products-db
+
+  stock-api:
+    image: widgetario/stock-api:dotnet
+    ports:
+      - "8082:80"
+    environment:
+      - Tracing__Enabled=true
+      - Caching__Enabled=true
+    networks:
+      - app-net
+    depends_on:
+      - products-db
+  
+  web:
+    image: widgetario/web:dotnet
+    ports:
+      - "8080:80"
+    environment:
+      - Tracing__Enabled=true
+    networks:
+      - app-net
+    depends_on:
+      - products-api      
+      - stock-api
+
+networks:
+  app-net:
