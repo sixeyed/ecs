@@ -1,0 +1,13 @@
+apiVersion: networking.k8s.io/v1beta1 
+kind: Ingress
+metadata:
+  name: widgetario
+spec:
+  rules:
+  - host: widgetario.local
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: widgetario-web
+          servicePort: 80

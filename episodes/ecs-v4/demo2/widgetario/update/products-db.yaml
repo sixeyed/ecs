@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: products-db
+spec:
+  selector:
+    matchLabels:
+      app: products-db
+  template:
+    metadata:
+      labels:
+        app: products-db
+      annotations:
+        prometheus.io/port: "9187"
+    spec:
+      containers:
+        - name: db
+          image: widgetario/products-db:postgres
+          ports:
+            - containerPort: 5432
+              name: db
+        - name: exporter
+          image: wrouesnel/postgres_exporter:v0.8.0
+          ports:
+            - name: metrics
+              containerPort: 9187
+          env:
+            - name: DATA_SOURCE_URI
+              value: localhost?sslmode=disable
+            - name: DATA_SOURCE_USER
+              value: postgres
+            - name: DATA_SOURCE_PASS
+              value: widgetario

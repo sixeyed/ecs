@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+spec:
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+        - name: web
+          image: widgetario/web:dotnet-serilog
+          ports:
+            - containerPort: 80
+              name: web
+          volumeMounts:
+            - name: logs
+              mountPath: /logs
+        - name: logger
+          image: alpine:3.12
+          command: ['sh', '-c', 'tail -f /logs-ro/app.log'] 
+          volumeMounts:
+            - name: logs
+              mountPath: /logs-ro
+              readOnly: true
+      volumes:
+        - name: logs
+          emptyDir: {}
