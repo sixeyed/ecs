@@ -22,6 +22,8 @@ __January 2021 (theme: observability)__
 
 * [ECS-V3: Distributed Tracing with Jaeger and Kubernetes](episodes/ecs-v3/)
 
+* [ECS-V4: Observability with Sidecars in Kubernetes](episodes/ecs-v4/)
+
 __December 2020 (theme: CI/CD)__
 
 * [ECS-C1: Continuous Integration with Docker and Jenkins](episodes/ecs-c1/)

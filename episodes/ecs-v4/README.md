@@ -1,4 +1,10 @@
+## ECS-V4: Observability with Sidecars in Kubernetes
 
+We've seen observability with logging, monitoring and tracing. They all have a common requirement - your containers needs certain behaviour, which you need to configure in your image or in your application source code. It's not always possible to mandate that behaviour for every component, so in this episode we'll look at adding it using sidecars, auxiliary containers which run alongside your application container.
+
+Not every container platform supports sidecars, so we'll focus on Kubernetes which lets you run multiple containers in a Pod. Those containers share the same network space, and they can also share filesystem directories and even processes. That's how you can add features to an application container without changing the app, and we'll see how that works with logging, monitoring and distributed tracing.
+
+> Here it is on YouTube - [ECS-V4: Observability with Sidecars in Kubernetes](https://youtu.be/YXMwSt4uvHo)
 
 ## Setup 
 
