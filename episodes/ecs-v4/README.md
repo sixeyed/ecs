@@ -6,7 +6,11 @@ Not every container platform supports sidecars, so we'll focus on Kubernetes whi
 
 > Here it is on YouTube - [ECS-V4: Observability with Sidecars in Kubernetes](https://youtu.be/YXMwSt4uvHo)
 
-## Setup 
+## Links
+
+- [Envoy Jaeger demo](https://github.com/envoyproxy/envoy/tree/main/examples/jaeger-tracing)
+
+## Setup
 
 _Deploy the ingress controller:_
 
@@ -51,7 +55,7 @@ Deploy the [updated Pod spec](demo1\widgetario\update\web.yaml) - using a sideca
 ```
 k apply -f .\demo1\widgetario\update\
 
-k logs -l app=web 
+k logs -l app=web
 
 k logs -l app=web -c logger
 ```
@@ -84,7 +88,6 @@ http://localhost:9091/targets
 
 > Now lots of `pg_` metrics, plus `process_cpu_seconds_total` includes the database
 
-
 ## Demo 3: Tracing with the Jaeger sidecar
 
 _Deploy Jaeger:_
@@ -97,8 +100,12 @@ k apply -f .\demo3\jaeger\
 
 > Browse to http://localhost - only service reporting traces is `jaeger-query`
 
+> TODO - 'before' for envoy demo
 
+```
+k apply -f demo3/envoy-demo/update
 
-> TODO - finish up, use custom envoy setup
+curl -v localhost:8800/svc/1
+```
 
-> See https://github.com/envoyproxy/envoy/tree/main/examples/jaeger-tracing
+> Check Jaeger UI

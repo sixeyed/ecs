@@ -1,0 +1,54 @@
+version: "3.7"
+services:
+  front-proxy:
+    image: sixeyed/envoy-demo:front-proxy
+    build:
+      context: ./front-proxy
+    networks:
+      - envoymesh
+    ports:
+      - "8000:8000"
+      - "8001:8001"
+
+  service1:
+    image: sixeyed/envoy-demo:service1
+    build:
+      context: ./service1
+    networks:
+      - envoymesh
+
+  service1-proxy:
+    image: sixeyed/envoy-demo:service1-proxy
+    build:
+      context: ./service1-proxy
+    networks:
+      - envoymesh
+
+  service2:
+    image: sixeyed/envoy-demo:service2
+    build:
+      context: ./service2
+    networks:
+      - envoymesh
+    environment:
+      - SERVICE_NAME=2
+
+  service2-proxy:
+    image: sixeyed/envoy-demo:service2-proxy
+    build:
+      context: ./service2-proxy
+    networks:
+      - envoymesh
+
+  jaeger:
+    image: jaegertracing/all-in-one
+    environment:
+      - COLLECTOR_ZIPKIN_HTTP_PORT=9411
+    networks:
+      - envoymesh
+    ports:
+      - "9411:9411"
+      - "16686:16686"
+
+networks:
+  envoymesh: {}
