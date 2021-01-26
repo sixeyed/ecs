@@ -7,4 +7,5 @@ WORKDIR /code
 COPY service.py .
 
 CMD python3 /code/service.py
-ENV SERVICE_NAME=1
+ENV SERVICE_NAME="1" \
+    TARGET_HOST="service2:8080"

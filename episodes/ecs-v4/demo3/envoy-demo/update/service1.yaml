@@ -26,6 +26,9 @@ spec:
       containers:
         - name: app
           image: sixeyed/envoy-demo:service1
+          env:
+            - name: TARGET_HOST
+              value: localhost:9000
         - name: proxy
           image: sixeyed/envoy-demo:service1-proxy
           ports:
