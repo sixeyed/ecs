@@ -22,7 +22,7 @@ kubectl apply -f ./setup/ingress-controller/
 
 ## Demo 1: Logging with a sidecar relay
 
-_Deploy the EFkubectl stack:_
+_Deploy the EFK stack:_
 
 ```
 kubectl apply -f ./demo1/logging/
@@ -70,13 +70,15 @@ _Deploy Prometheus:_
 kubectl apply -f ./demo2/prometheus/
 ```
 
-> Configuration adds all Pods in the default namespace; checkubectl at:
+> Configuration adds all Pods in the default namespace; check at:
 
 http://localhost:9091/targets
 
 http://localhost:9091/graph - `app_info`
 
-_Update Postgres with an exporter sidecar:_
+Deploy the [updated Postgres Pod spec](demo2/widgetario/update/products-db.yaml) - using an exporter sidecar.
+
+_Update Postgres:_
 
 ```
 kubectl apply -f ./demo2/widgetario/update/
@@ -100,13 +102,21 @@ kubectl apply -f ./demo3/jaeger/
 
 > Browse to http://localhost - only service reporting traces is `jaeger-query`
 
+The demo app is a simple [Python web server](demo3/envoy-demo/src/service1/service.py). It doesn't use a Jaeger client library, but it propogates tracing headers if it finds them.
+
+_Deploy the demo app from Envoy examples:_
+
 ```
 kubectl apply -f demo3/envoy-demo/
 
 curl -v localhost:8000/svc/1
 ```
 
-Direct communication from service 1 to 2.
+Direct communication from service 1 to 2 - see [service 1 Pod spec](episodes/ecs-v4/demo3/envoy-demo/service1.yaml).
+
+The update uses Envoy as a [front proxy](demo3/envoy-demo/src/front-proxy/front-envoy-jaeger.yaml) to generate the initial request ID; then runs Envoy sidecars for [service 1](demo3/envoy-demo/update/service1.yaml) and [service 2](demo3/envoy-demo/update/service2.yaml). The sidecars report traces to Jaeger.
+
+_Deploy the update:_
 
 ```
 kubectl apply -f demo3/envoy-demo/update/
