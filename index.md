@@ -14,6 +14,10 @@ Every month I'll cover a different theme in sessions which are full of demos and
 
 ## Episodes
 
+__February 2021 (theme: service mesh)__
+
+* [ECS-M1: Into the Service Mesh](episodes/ecs-m1/)
+
 __January 2021 (theme: observability)__
 
 * [ECS-V1: Monitoring with Prometheus and Grafana](episodes/ecs-v1/)

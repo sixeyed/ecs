@@ -127,3 +127,7 @@ curl localhost:8800/svc/1
 Same Docker images, config now routes call through Envoy, which sends traces to Jaeger.
 
 > Check Jaeger UI
+
+### Coming next
+
+* ECS-M1: Into the Service Mesh
