@@ -18,6 +18,8 @@ __February 2021 (theme: service mesh)__
 
 * [ECS-M1: Into the Service Mesh](episodes/ecs-m1/)
 
+* [ECS-M2: Service Mesh with Linkerd and Kubernetes](episodes/ecs-m2/)
+
 __January 2021 (theme: observability)__
 
 * [ECS-V1: Monitoring with Prometheus and Grafana](episodes/ecs-v1/)
