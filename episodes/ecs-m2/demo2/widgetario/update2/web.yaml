@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+  namespace: widgetario
+spec:
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+      annotations:
+        linkerd.io/inject: enabled
+        config.linkerd.io/enable-debug-sidecar: "true"
+    spec:
+      containers:
+        - name: web
+          image: widgetario/web:dotnet
+          ports:
+            - containerPort: 80
+              name: web

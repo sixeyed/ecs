@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stock-api
+  namespace: widgetario
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: stock-api
+  template:
+    metadata:
+      labels:
+        app: stock-api
+      annotations:
+        linkerd.io/inject: enabled
+    spec:
+      containers:
+        - name: api
+          image: widgetario/stock-api:dotnet
+          ports:
+            - containerPort: 80
+              name: api
+
