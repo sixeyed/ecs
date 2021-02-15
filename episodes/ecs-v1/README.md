@@ -197,7 +197,7 @@ Browse to:
 
 ### Teardown
 
-````
+```
 kubectl delete ns,svc,deploy,clusterrole,clusterrolebinding -l ecs=v1
 ```
 

@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: widgetario-products
+  namespace: widgetario
+  labels:
+    account: products
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: products-api-v1
+  namespace: widgetario
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: products-api
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: products-api
+        version: v1
+    spec:
+      serviceAccountName: widgetario-products
+      containers:
+        - name: api
+          image: widgetario/products-api:dotnet
+          ports:
+            - containerPort: 80
+              name: api
+

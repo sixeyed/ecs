@@ -54,6 +54,8 @@ _Add the local Git server as a remote:_
 
 ```
 git remote add local http://localhost:3000/ecs/ecs.git
+
+git push -u local
 ```
 
 > See [Diamol ep. 10](https://youtu.be/lO-Lwwy04zs) for automation options
