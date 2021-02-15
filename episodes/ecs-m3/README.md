@@ -82,18 +82,18 @@ istioctl dashboard kiali
 
 The demo app will run in its own namespace - [01-namespace.yaml](demo2\widgetario\01-namespace.yaml) includes the Istio auto-injection label.
 
-_Deploy without registering to the mesh:_
+_Deploy straight onto the mesh:_
 
 ```
 kubectl apply -f demo2/widgetario/01-namespace.yaml
 
-istioctl analyze .\demo2\widgetario\ -n widgetario
+istioctl analyze demo2/widgetario/ -n widgetario
 ```
 
 ```
 kubectl apply -f demo2/widgetario/
 
-k get pods -n widgetario
+kubectl get pods -n widgetario
 
 istioctl dashboard kiali
 ```
@@ -120,7 +120,7 @@ You can also apply service-to-service authorization. Authentication is outside I
 _Apply the new service accounts:_
 
 ```
-k apply -f demo3/widgetario/
+kubectl apply -f demo3/widgetario/
 ```
 
 > Everything still works at http://localhost:8010 
@@ -128,11 +128,9 @@ k apply -f demo3/widgetario/
 Now 
 
 ```
-k apply -f demo3/authz/deny-all.yaml
+kubectl apply -f demo3/authz/deny-all.yaml
 
 curl http://localhost:8010 
-
-k logs -l app=web -n widgetario --since 1m
 ```
 
 > App breaks - Istio blocks unauthorized communication at the proxy level
@@ -142,24 +140,93 @@ Authz - all to web, web to APIs, APIs to db
 - 
 
 ```
-k apply -f .\demo3\authz\allow\
+kubectl apply -f .\demo3\authz\allow\
+
+curl http://localhost:8010 
 ```
 
+> App works
 
+Any Pods which are not authenticated can't access the services - [sleep.yaml](demo3/sleep.yaml) doesn't mount a service account token, so it has no service identity.
+
+```
+kubectl apply -f demo3/sleep.yaml
+
+kubectl exec -it sleep -- sh
+
+nslookup stock-api.widgetario.svc.cluster.local
+
+wget -qO- http://stock-api.widgetario.svc.cluster.local/stock/1
+
+exit
+```
 
 ### Demo 4 - Traffic management
 
-- fault injection
-
 - traffic split
 
+```
+kubectl apply -f demo4/products-api/
 
+kubectl get endpoints products-api -n widgetario
+```
+
+```
+kubectl apply -f demo4/traffic-split/25-75.yaml
+```
+
+```
+kubectl apply -f demo4/traffic-split/50-50.yaml
+```
+
+- fault injection
+
+```
+kubectl apply -f .\demo4\stock-api
+
+kubectl apply -f .\demo4\stock-api\fault-injection\abort-20-pct.yaml
+
+curl http://localhost:8010
+
+kubectl logs -n widgetario -l app=web --since 30s --tail 100
+```
+
+```
+kubectl apply -f .\demo4\stock-api\fault-injection\delay-70-pct.yaml
+```
+
+Try localhost:8010
+
+> Can use Istio for ingress - custom [Ingress Gateway API](https://istio.io/latest/docs/tasks/traffic-management/ingress/ingress-control/)
 
 ### Demo 5 - Observability
 
-- kiali
-- grafana
-- jaeger
+```
+docker container run --rm `
+  --add-host "wiredbrain.local:192.168.2.154" `
+  fortio/fortio:1.14.1 `
+  load -c 32 -qps 25 -t 30m -timeout 5s http://wiredbrain.local:8010/
+```
+
+```
+istioctl dashboard
+
+istioctl dashboard kiali
+```
+
+```
+istioctl dashboard grafana
+```
+
+- mesh dashboard
+- control plane dashboard
+- service dasboard (mtls)
+
+```
+istioctl dashboard  jaeger
+```
+
+> Individual traces, not linked - no header propagation in code
 
 ### Coming next
 
