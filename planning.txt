@@ -41,10 +41,10 @@ planning.txt
 1 - 101 & attack surface
 2 - Image scanning, Snyk/Aqua
 3 - Runtime monitoring, Aqua/Twist
-4 - Secure supply chain & Kube webhooks
+4 - Secure supply chain & OPA
 
 
-21.04 - KIAMOL ?
+21.04 - KIAMOL!!!
 
 21.05 - Lx - serverless
 

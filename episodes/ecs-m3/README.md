@@ -4,7 +4,7 @@ Istio is the most well-known and fully-featured service mesh. It uses Envoy as t
 
 We'll see all of those features in action using the Widgetario demo application, and get a feel for the additional modelling and management Istio adds to your apps.
 
-> Here it is on YouTube - [ECS-M3: Service Mesh with Istio on Kubernetes](https://youtu.be/kH_ah8utAdM)
+> Here it is on YouTube - [ECS-M3: Service Mesh with Istio on Kubernetes](https://youtu.be/jhmMaP2L-L4)
 
 ### Links
 
