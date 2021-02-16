@@ -8,6 +8,8 @@ We'll see all of those features in action using the Widgetario demo application,
 
 > Here it is on YouTube - [ECS-M3: Service Mesh with Istio on Kubernetes](https://youtu.be/jhmMaP2L-L4)
 
+> And here are the demo files on GitHub - [sixeyed/ecs](https://github.com/sixeyed/ecs/tree/master/episodes/ecs-m3)
+
 ### Links
 
 * [Managing Apps on Kubernetes with Istio](https://pluralsight.pxf.io/Rrr3a) - my Pluralsight course
