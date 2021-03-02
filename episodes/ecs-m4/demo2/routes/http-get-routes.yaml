@@ -1,0 +1,11 @@
+apiVersion: specs.smi-spec.io/v1alpha3
+kind: HTTPRouteGroup
+metadata:
+  name: http-get-routes
+  namespace: widgetario
+spec:
+  matches:
+  - name: get-all
+    pathRegex: ".*"
+    methods: 
+    - GET

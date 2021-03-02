@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stock-api
+  namespace: widgetario
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: stock-api
+      ecs: m4
+  template:
+    metadata:
+      labels:
+        app: stock-api
+        ecs: m4
+      annotations:
+        'consul.hashicorp.com/connect-inject': 'true'
+        'consul.hashicorp.com/connect-service': 'stock-api'
+        'consul.hashicorp.com/connect-service-upstreams': 'products-db:8097'
+    spec:
+      serviceAccountName: stock-api
+      containers:
+        - name: app
+          image: widgetario/stock-api:golang
+          ports:
+            - containerPort: 8080
+              name: api
+          envFrom:
+            - secretRef:
+                name: stock-api-connection
+

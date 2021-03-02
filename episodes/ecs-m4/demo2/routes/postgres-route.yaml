@@ -1,0 +1,9 @@
+apiVersion: specs.smi-spec.io/v1alpha3
+kind: TCPRoute
+metadata:
+  name: postgres-route
+  namespace: widgetario
+spec:
+  matches:
+    ports:
+    - 5432

@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: products-api-v2
+  namespace: widgetario
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: products-api
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: products-api
+        version: v2
+      annotations:
+        consul.hashicorp.com/connect-inject: 'true'    
+        consul.hashicorp.com/connect-service: products-api
+        consul.hashicorp.com/connect-service-upstreams: products-db:8097
+        consul.hashicorp.com/service-meta-version: v2
+    spec:
+      serviceAccountName: products-api
+      containers:
+        - name: app
+          image: widgetario/products-api:java
+          imagePullPolicy: Always
+          env:
+            - name: PRICE_FACTOR
+              value: "1.5"
+          ports:
+            - containerPort: 80
+              name: api
+          volumeMounts:
+            - name: db-properties
+              mountPath: "/app/config/db"
+              readOnly: true
+      volumes:
+        - name: db-properties
+          secret:
+            secretName: products-api-db
+

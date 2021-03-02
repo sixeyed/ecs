@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- namespace.yaml
+- secrets/products-api-db.yaml
+- secrets/products-db-password.yaml
+- secrets/stock-api-connection.yaml
+- secrets/web-api.yaml
+- products-db.yaml
+- stock-api.yaml
+- products-api.yaml
+- web.yaml
+namespace: widgetario
+commonLabels:
+  ecs: m4

@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: widgetario-web
+spec:
+  ports:
+    - name: http
+      port: 8010
+      targetPort: web
+  selector:
+    app: web
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: web
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+spec:
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      serviceAccountName: web
+      containers:
+        - name: web
+          image: widgetario/web:dotnet
+          env:
+            - name: Logging__LogLevel__Default
+              value: Warning
+            - name: Logging__LogLevel__Widgetario.Web
+              value: Debug
+          ports:
+            - containerPort: 80
+              name: web
+          volumeMounts:
+            - name: api-config
+              mountPath: "/app/secrets"
+              readOnly: true
+      volumes:
+        - name: api-config
+          secret:
+            secretName: web-api

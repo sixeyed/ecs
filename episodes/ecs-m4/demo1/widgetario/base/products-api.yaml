@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: products-api
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: api
+  selector:
+    app: products-api
+  type: ClusterIP
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: products-api
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: products-api-v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: products-api
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: products-api
+        version: v1
+    spec:
+      serviceAccountName: products-api
+      containers:
+        - name: api
+          image: widgetario/products-api:java
+          ports:
+            - containerPort: 80
+              name: api
+          volumeMounts:
+            - name: db-properties
+              mountPath: "/app/config/db"
+              readOnly: true
+      volumes:
+        - name: db-properties
+          secret:
+            secretName: products-api-db
+

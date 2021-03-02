@@ -1,0 +1,41 @@
+apiVersion: access.smi-spec.io/v1alpha2
+kind: TrafficTarget
+metadata:
+  name: products-api-allow-web
+  namespace: widgetario
+spec:
+  destination:
+    kind: ServiceAccount
+    name: products-api
+    namespace: widgetario
+  rules:
+  - kind: HTTPRouteGroup
+    name: http-get-routes
+    namespace: widgetario
+    matches:
+    - get-all
+  sources:
+  - kind: ServiceAccount
+    name: web
+    namespace: widgetario
+---
+apiVersion: access.smi-spec.io/v1alpha2
+kind: TrafficTarget
+metadata:
+  name: stock-api-allow-web
+  namespace: widgetario
+spec:
+  destination:
+    kind: ServiceAccount
+    name: stock-api
+    namespace: widgetario
+  rules:
+  - kind: HTTPRouteGroup
+    name: http-get-routes
+    namespace: widgetario
+    matches:
+    - get-all
+  sources:
+  - kind: ServiceAccount
+    name: web
+    namespace: widgetario

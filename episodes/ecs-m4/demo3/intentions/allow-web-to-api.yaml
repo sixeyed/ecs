@@ -1,0 +1,31 @@
+apiVersion: consul.hashicorp.com/v1alpha1
+kind: ServiceIntentions
+metadata:
+  name: web-to-products-api
+  namespace: widgetario
+spec:
+  destination:
+    name: products-api
+  sources:
+    - name: web
+      permissions:
+        - action: allow
+          http:
+            pathPrefix: /
+            methods: ['GET']
+---
+apiVersion: consul.hashicorp.com/v1alpha1
+kind: ServiceIntentions
+metadata:
+  name: web-to-stock-api
+  namespace: widgetario
+spec:
+  destination:
+    name: stock-api
+  sources:
+    - name: web
+      permissions:
+        - action: allow
+          http:
+            pathPrefix: /
+            methods: ['GET']

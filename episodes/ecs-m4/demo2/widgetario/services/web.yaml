@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: widgetario-web
+  namespace: widgetario
+  annotations:
+    mesh.traefik.io/traffic-type: "http"
+spec:
+  ports:
+    - name: http
+      port: 8010
+      targetPort: web
+      nodePort: 30000
+  selector:
+    app: web
+  type: NodePort

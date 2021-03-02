@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: products-db
+  namespace: widgetario
+spec:
+  selector:
+    matchLabels:
+      app: products-db
+      ecs: m4
+  template:
+    metadata:
+      labels:
+        app: products-db
+        ecs: m4
+      annotations:
+        'consul.hashicorp.com/connect-inject': 'true'
+        'consul.hashicorp.com/connect-service': 'products-db'
+    spec:
+      serviceAccountName: products-db
+      containers:
+        - name: app
+          image: widgetario/products-db:postgres
+          ports:
+            - containerPort: 5432
+              name: db
+          env:
+            - name: POSTGRES_PASSWORD
+              value: ""
+            - name: POSTGRES_PASSWORD_FILE
+              value: /secrets/pg-password
+          volumeMounts:
+            - name: db-password
+              mountPath: "/secrets"
+              readOnly: true
+      volumes:
+        - name: db-password
+          secret:
+            secretName: products-db-password

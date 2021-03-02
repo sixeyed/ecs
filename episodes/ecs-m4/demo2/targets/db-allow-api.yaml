@@ -1,0 +1,20 @@
+apiVersion: access.smi-spec.io/v1alpha2
+kind: TrafficTarget
+metadata:
+  name: db-allow-api
+  namespace: widgetario
+spec:
+  destination:
+    kind: ServiceAccount
+    name: products-db
+    namespace: widgetario
+  rules:
+  - kind: TCPRoute
+    name: postgres-route
+  sources:
+  - kind: ServiceAccount
+    name: products-api
+    namespace: widgetario
+  - kind: ServiceAccount
+    name: stock-api
+    namespace: widgetario

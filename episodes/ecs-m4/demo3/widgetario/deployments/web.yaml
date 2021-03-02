@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+  namespace: widgetario
+spec:
+  selector:
+    matchLabels:
+      app: web      
+      ecs: m4
+  template:
+    metadata:
+      labels:
+        app: web
+        ecs: m4
+      annotations:
+        'consul.hashicorp.com/connect-inject': 'true'
+        'consul.hashicorp.com/connect-service': 'web'
+        'consul.hashicorp.com/connect-service-upstreams': 'products-api:8098,stock-api:8099'
+    spec:
+      serviceAccountName: web
+      containers:
+        - name: app
+          image: widgetario/web:dotnet
+          env:
+            - name: Logging__LogLevel__Default
+              value: Warning
+            - name: Logging__LogLevel__Widgetario.Web
+              value: Debug
+          ports:
+            - containerPort: 80
+              name: web
+          volumeMounts:
+            - name: api-config
+              mountPath: "/app/secrets"
+              readOnly: true
+      volumes:
+        - name: api-config
+          secret:
+            secretName: web-api

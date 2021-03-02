@@ -1,0 +1,32 @@
+apiVersion: consul.hashicorp.com/v1alpha1
+kind: ServiceDefaults
+metadata:
+  name: products-api
+  namespace: widgetario
+spec:
+  protocol: http
+---
+apiVersion: consul.hashicorp.com/v1alpha1
+kind: ServiceResolver
+metadata:
+  name: products-api
+  namespace: widgetario
+spec:
+  defaultSubset: 'v1'
+  subsets:
+    'v1':
+      filter: 'Service.Meta.version == v1'
+    'v2':
+      filter: 'Service.Meta.version == v2'
+---
+apiVersion: consul.hashicorp.com/v1alpha1
+kind: ServiceSplitter
+metadata:
+  name: products-api
+  namespace: widgetario
+spec:
+  splits:
+    - weight: 70
+      serviceSubset: v1
+    - weight: 30
+      serviceSubset: v2

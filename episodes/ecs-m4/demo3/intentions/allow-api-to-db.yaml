@@ -1,0 +1,13 @@
+apiVersion: consul.hashicorp.com/v1alpha1
+kind: ServiceIntentions
+metadata:
+  name: api-to-db
+  namespace: widgetario
+spec:
+  destination:
+    name: products-db
+  sources:
+    - name: products-api
+      action: allow
+    - name: stock-api
+      action: allow

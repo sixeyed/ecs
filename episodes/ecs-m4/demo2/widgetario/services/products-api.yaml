@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: products-api
+  namespace: widgetario
+  annotations:
+    mesh.traefik.io/traffic-type: "http"
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: api
+  selector:
+    app: products-api
+  type: ClusterIP

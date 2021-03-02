@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: products-db
+  namespace: widgetario
+  annotations:
+    mesh.traefik.io/traffic-type: "tcp"
+spec:
+  ports:
+    - name: tcp
+      port: 5432
+      targetPort: db
+  selector:
+    app: products-db
+  type: LoadBalancer
