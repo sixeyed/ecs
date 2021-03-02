@@ -4,7 +4,7 @@ The Service Mesh Interface defines a generic API for service mesh features, so y
 
 We'll use Traefik Mesh which takes an alternative, lightweight approach to meshing services. It uses SMI for traffic shaping and access control. Then we'll try the service mesh features in Consul Connect and see how the SMI implementation works (or - not).
 
-> Here it is on YouTube - [ECS-M4: Service Mesh Interface with OSM and Traefik Mesh](https://youtu.be/)
+> Here it is on YouTube - [ECS-M4: Service Mesh Interface with Traefik Mesh & Consul](https://youtu.be/qe6kLTx2eAo)
 
 > And here are the demo files on GitHub - [sixeyed/ecs](https://github.com/sixeyed/ecs/tree/master/episodes/ecs-m4)
 
@@ -267,12 +267,28 @@ kubectl apply -f ./demo3/splitters/
 
 ### Guidance :)
 
-- SMI isn't living up to expectations & OSM still pretty early
+- I want to like SMI, but I'm not sure it's living up to expectations 
+- OSM still pretty early, couldn't get ACL working with Postgres
+
+---
+
 - Main choices: Istio, Linkerd & Consul
 - If you're already using the Hashicorp stack -> Consul
 - Else if your Kubernetes is strong and the governance issues don't worry you -> Istio
 - Else -> Linkerd
+
+---
+
 - Don't spend too much time with the demo projects, get onto your own apps
+
+
+### Teardown
+
+```
+kind delete cluster --name ecs-m4-1
+
+kind delete cluster --name ecs-m4-2
+```
 
 ### Coming next
 
